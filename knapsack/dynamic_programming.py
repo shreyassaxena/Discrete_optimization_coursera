@@ -79,7 +79,7 @@ def get_soltuion_from_table(table,all_items,item_selector):
 
 def solve_it(all_items, knapsack_capacity):
     # NOTE: Here all_items is a namedtuple
-    debug = True
+    debug = False
     number_items = len(all_items)
 
     # We have to initialize the table

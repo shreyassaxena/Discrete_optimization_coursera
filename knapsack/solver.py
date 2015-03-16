@@ -41,7 +41,7 @@ def old_solve_it(input_data):
     return output_data
 
 
-def solve_it(input_data, solver):
+def solve_it_diff_methods(input_data, solver):
     # Modify this code to run your optimization algorithm
     # parse the input
     lines = input_data.split('\n')
@@ -71,11 +71,33 @@ def solve_it(input_data, solver):
 
     elif solver is "BranchBound_relaxed":
         start_time = time.time()
-        result = BB_relaxed.solve_it_depth_first(items, capacity)
+        result = BB_relaxed.solve_it_depth_first(items, capacity, 'weight')
         print "Execution with BB DFS with relaxation took {} seconds".format(time.time()-start_time)
 
     return result
 
+def solve_it(input_data):
+    # Modify this code to run your optimization algorithm
+    # parse the input
+    lines = input_data.split('\n')
+
+    firstLine = lines[0].split()
+    item_count = int(firstLine[0])
+    capacity = int(firstLine[1])
+
+    items = []
+
+    for i in range(1, item_count+1):
+        line = lines[i]
+        parts = line.split()
+        items.append(Item(i-1, int(parts[0]), int(parts[1])))
+
+    ipdb.set_trace()
+    # this is where we are going to call our code
+    start_time = time.time()
+    result = BB_relaxed.solve_it_depth_first(items, capacity, 'weight')
+    print "Execution with BB DFS with relaxation took {} seconds".format(time.time()-start_time)
+    return result
 
 
 import sys
@@ -91,10 +113,10 @@ if __name__ == '__main__':
         input_data = ''.join(input_data_file.readlines())
         input_data_file.close()
         #ipdb.set_trace()
-        print old_solve_it(input_data)
-        print solve_it(input_data, "DynamicProgramming")
-        print solve_it(input_data, "BranchBound")
-        print solve_it(input_data, "BranchBound_relaxed")
+        #print old_solve_it(input_data)
+        #print solve_it_diff_methods(input_data, "DynamicProgramming")
+        #print solve_it_diff_methods(input_data, "BranchBound")
+        print solve_it_diff_methods(input_data, "BranchBound_relaxed")
 
     else:
         print 'This test requires an input file.  Please select one from the data directory. (i.e. python solver.py ./data/ks_4_0)'

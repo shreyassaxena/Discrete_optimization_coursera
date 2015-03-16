@@ -1,0 +1,8 @@
+#Compiled source#
+#################
+*.pyc
+*.java
+
+#Unwanted Program files#
+########################
+solverJava.py

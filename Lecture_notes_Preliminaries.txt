@@ -1,3 +1,13 @@
+Practial Implementation tip:
+    - DFS Branch and Bound
+        - It pays off quite well to sort the inputs by either value, weight, or value/weight 
+        - Investigate: The optimum stratergy should be to check the entropy of the field and choose the one with lowest 
+    - Dynamic Programming
+        - It could be speeded up by using sparse tables to represent transition points
+        - The pseudo-polynomial time concept can be understood by constructing a DP table for non-integral weight values ;)
+
+
+
 Knapsack2
 - Greedy algorithm: Pick one item at a time greedily with diff. heuristic. 
     - Choose the smallest item first
@@ -135,6 +145,7 @@ Exploring the material:
         - lots of staring at the terminal
 
                 
+
 
      
               

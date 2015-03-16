@@ -110,20 +110,39 @@ def perform_DFS(tree, items):
     return max_value_obatined
 
 
-def solve_it_depth_first(all_items, knapsack_capacity):
+def solve_it_depth_first(all_items, knapsack_capacity, sort_with):
     # NOTE: Here all_items is a namedtuple
     # Root node corresponds to no selected variable
     # Initialization
     #max_possible_value = sum([temp_item.value for temp_item in all_items])
-    debug = True
-    max_possible_value = compute_optimistic_value(all_items, knapsack_capacity)
+    #ipdb.set_trace()
+    print "Sorting with {}".format(sort_with)
+    if sort_with is 'weight':
+        sort_indices = sorted(range(len(all_items)), key=lambda x: all_items[x].weight, reverse=True)
+    elif sort_with is 'value':
+        sort_indices = sorted(range(len(all_items)), key=lambda x: all_items[x].value, reverse=True)
+    elif sort_with is 'value_per_weight':
+        sort_indices = sorted(range(len(all_items)), key=lambda x: all_items[x].value/all_items[x].weight, reverse=True)
+    else:
+        sort_indices = range(len(all_items))
 
+    reverse_sort_indices = sorted(range(len(all_items)), key=lambda x: sort_indices[x])
+    all_items_sorted = [all_items[r] for r in sort_indices]
+
+
+    debug = False
+    max_possible_value = compute_optimistic_value(all_items_sorted, knapsack_capacity)
     root_node = Node(evaluation=0, capacity=knapsack_capacity, optimum_value=max_possible_value, height=0)
-    root_node.selected_item = [0]*len(all_items)
+    root_node.selected_item = [0]*len(all_items_sorted)
     tree_nodes = deque([root_node])
 
     # Performing depth first search
-    solution = perform_DFS(tree_nodes, all_items)
+    solution = perform_DFS(tree_nodes, all_items_sorted)
+    temp_max, temp_selection_index = solution
+
+    # Mapping the solution to original sort order
+    solution = (temp_max, [temp_selection_index[r] for r in reverse_sort_indices])
+
     #ipdb.set_trace()
     # Checking if the solution returned is correct or not
     if debug is True:
@@ -186,12 +205,12 @@ if __name__ == '__main__':
     #knapsack_capacity = 7
 
     # Example from slide 8 for Branch and Bound
-    all_items = [Item(0, 45, 5), Item(1, 48, 8), Item(2, 35, 3)]
-    knapsack_capacity = 10
-    #ipdb.set_trace()
+    items = [Item(0, 45, 5), Item(1, 48, 8), Item(2, 35, 3)]
+    capacity = 10
+    sort_with_var = 'value_per_weight'
 
     # Calling our solver
-    print solve_it_depth_first(all_items, knapsack_capacity)
+    print solve_it_depth_first(items, capacity, sort_with_var)
 
 
 

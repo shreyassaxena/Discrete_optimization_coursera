@@ -103,7 +103,7 @@ def solve_it_depth_first(all_items, knapsack_capacity):
     # Root node corresponds to no selected variable
 
     # Initialization
-    debug = True
+    debug = False
     max_possible_value = sum([temp_item.value for temp_item in all_items])
     root_node = Node(evaluation=0, capacity=knapsack_capacity, optimum_value=max_possible_value, height=0)
     root_node.selected_item = [0]*len(all_items)
@@ -147,12 +147,12 @@ if __name__ == '__main__':
     #knapsack_capacity = 7
 
     # Example from slide 8 for Branch and Bound
-    all_items = [Item(0, 45, 5), Item(1, 48, 8), Item(2, 35, 3)]
-    knapsack_capacity = 10
+    items = [Item(0, 45, 5), Item(1, 48, 8), Item(2, 35, 3)]
+    capacity = 10
     #ipdb.set_trace()
 
     # Calling our solver
-    print solve_it_depth_first(all_items, knapsack_capacity)
+    print solve_it_depth_first(items, capacity)
 
 
 
