@@ -1,0 +1,75 @@
+Constraint Programming: Intution to CP
+    - Computational paradigm
+        - Use constraints to reduce the set of values that each
+          variable can take
+        - remove values that cannot appear in any solution
+       
+    - Modeling methodology
+        - convey the sturcture of problem as explicitly as
+          possible
+        - express as sub structures
+        - give solvers as much info. as possible
+
+    - 8 Queens problems
+        - place 8 queens on a chess board so that none of them
+          attach each other
+        - two queens attack each other if they are on same column, row or diagonal 
+        - In CP, we remove items from search space depending on current solution. For example, in N queens, all the  rows,
+          columns and diagonals for each queen are removed
+        - Put queen greedily on cloumns row, having only once place left, as we know each column or row will have
+          one queen atleast
+            
+    - Computational paradigm ( revisited )
+        - Choice
+            - make a choice when no more deduction can be done
+            - Assume a choice assigns a value to a variable
+            - Choices are often wrong, the solver backtracks and tries another value
+        - Specification:
+            - Coloring a Map: Two adjacent territories receive the same color
+            - Theorem proved with a computer: Every map can be colored with 4 colors
+            - choose the decision variables
+                - The color given to each country
+                - Domain is set of values that a variable can take, i.e. 4 diff. colors
+            - Express constraints in terms of decision variable
+                - specify that two adjacent countries cannot be given same color
+            - High level language model example on Slide 9: Coloring a Map
+            - Slide 12: Example on a Map with countries
+        - Branch and Prune:
+            - Pruning: Reduce the search space as much as possible by using constraints
+            - Branching : decompose the problems into subproblems
+
+        - Complete method, not a heuristic:
+            - Given enough time, it will find a solution to a satisfaction problem ( N-queens)
+            - Given enough time, it will find an optimal solution to an optimzation problem
+
+        - Focus on feasibility:
+            - How to use constraints to prune the search space
+                                        
+        - What does constraint do?
+            - Feasibility checking: Node we are exploring is potentially feasible, if a constraint can be satisfied given the domain of variables
+            - Helps to prune the search space
+
+        - Propagation engine:
+            - This is the core of CP
+            - It is an iterative fix-point algorithm ( Read? )
+            - Select  a constraint C
+            - Algorithm: ( Slide 29)
+                - If C is feasible use it prune the space, if not then return faliure
+                - Keep iterating over constraints until no constraint can remove any value from the domain of its variables ( Fix point state )
+                - After fix point state, the system is asked to make a choice 
+        - What are decision variables?
+            - many possible modellings
+            - Example N-queens
+                - associate a decision variable with each column
+                - the variable denotes the row of the column on which queen is to be placed
+
+% From this step we just take the important point as doubts a notes, as the slide as quite good %
+                - Not clear for upward diagonal? Ok got it, from exp. on Slide 32. Important
+                - Isn't this formulation a bit optimistic as we are just interested in one row up or below for the diagonal?
+
+        - Simple example for feasibility checking, X neq Y 
+            -( Slide 35 not clear) Why greater than 1 or 2? Shouldn't it be greater than the min. of either sets?
+            - Pruning Occurs only if one of the variable can pick only one value. IMP. Slide 36
+
+
+         

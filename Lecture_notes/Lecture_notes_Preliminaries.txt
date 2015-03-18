@@ -1,0 +1,152 @@
+Practial Implementation tip:
+    - DFS Branch and Bound
+        - It pays off quite well to sort the inputs by either value, weight, or value/weight 
+        - Investigate: The optimum stratergy should be to check the entropy of the field and choose the one with lowest 
+    - Dynamic Programming
+        - It could be speeded up by using sparse tables to represent transition points
+        - The pseudo-polynomial time concept can be understood by constructing a DP table for non-integral weight values ;)
+
+
+
+Knapsack2
+- Greedy algorithm: Pick one item at a time greedily with diff. heuristic. 
+    - Choose the smallest item first
+    - Choose the most valuable item first
+    - Better than the earlier methods? We can using the structure of problem
+    - Value density, value per Kg ( Specific to Indiana Jones example )
+    - Properties: 
+        - They give you a baseline
+        - No garuantee if we have an optimal situation (in general)
+        - The optimality of the solution depends upon the input
+        - In general, we can always try to solve a problem using greedy approach and then improve over it using other methods
+
+Knapsack3
+- Modeling: How to formalize an optimzation task as a mathematical model?
+    - 1 dimensional knapsack problem
+        - Set of items I, each item i in I
+        - its weight Wi and value Vi
+        - capacity K for a knapsack
+        - Objective: Maximize the value, with items weight less than K
+
+    - First thing: Choose the decision variables ( they encode the result )
+    - Second thing: Model the problem constraints in term of the decision variables
+    - Last thing: Specify the objective function
+    - We have an optimization problem in the end. We know what we want to solve, but how is still not there
+    - The way we have defined our variables is already making some restrictions on the solutions we can explore
+
+    - Analyzing Knapsack problem:
+        - Xi is a decision variable. Its value is 1, if it is selected and 0 if not.
+        - Constraint: Sum over i ( Wi*Xi) <= K
+        - Objective function : Max {Sum over i (Vi*Xi)}
+        - We have a lot of configurations (0,0,0,...0), (0,0,0,...,1), ... ,(1,1,1,...,1) : 2^N
+        - Not all of them are feasible as we can not exceed the capacity of the knapsack
+        - 1 milli second per problem, 50 items, 2^50 evaluation will take a billion century approx. 
+        - Therefore, we need a smarter way to find a high quality solution.
+
+Knapsack4:
+- Dynamic Programming
+    - Finding the best knapsack solutions using dynamic programming
+    - Used hevaily in computational biology
+    - Basic principle
+        - Divide and Conquer
+        - Bottom up computation
+    - Basic convention ( Bellman Equations )
+        - assume I = {1,2,..n}
+        - O(k,j) denotes the optimal soltuion to knapsack with capacity K and items [1..j]
+        - Assum we know how to slove O(k,j-1)
+        - We want to solve O(k,j) that is we want to just add one more item
+        - If Wj <= k
+            : Either we do not select item j, the best solution we have is O(k,j-1)
+            : We select the item j, best soltuion is Vj + O(k-Wj,j-1) // Not so clear
+        - O(k,j) = max(O(k,j-1), Vj+O(k-Wj,j-1)) if Wj<=k else O(k,j) = O(k,j-1)
+        - Ofcourse O(k,0) = 0 for all k
+    - Understand/Code the program
+    - Discusses disadvantage of top-down with fibonnaci ( Where we compute some terms redundantly )
+    - Dynamic programming with bottom up approach 
+        - Table intution for knapsack in dynamic programming ( IMPORTANT, look at Slide 9 )
+        - Table intutuion for Linear equation
+Knapsack5:
+- Branch and Bound and Relaxation
+    - Exhaustive search explores the entire hierarchail tree
+    - In B&B we just search a part of the tree
+    - B&B:
+        - Iterative two steps: Branching and Bounding
+        - Branching: splits problems in subproblems ( like in exhaustive search )
+        - Bounding: find an optimistic evaluation 
+            - maximization: upper bound
+            - minimization: lower bound
+        - How to find the optimistic estimate?
+            - Relaxation
+        - Nice example 5:00 for depth first branch and bound
+            - Better approximation helps to prune tree earlier
+        - Instead of binary assignment, we can take fraction ( Belgian chocolate )
+        - This is known as linear relaxation (0 <= Xi <=1)
+        - In this case we can order items by Vi/Wi 
+        - Now, select the items while capactiy is not exhausted ( Slide 12 )
+        - Nice example to see benefit of good relaxation(Slide 15). Even though artifacts can not be broken
+          but using this sort of relaxation, helps us to come up with a nice approximation for B&B. 
+Knapsack6:
+- Search stratergies for branch and bound
+    - Depth-first, best-first, least-discrepancy, and many others
+    - Depth-first
+        - PRUNES: when a node estimation is worse than the best found solution
+        - how efficient is it from memory stand point?
+        - Memory efficient: In this case, the max. memory cost would be when
+          we go down to a branch of height K, where K is the number of items.
+          So it is not so bad.
+
+    - Best-first
+        - select the node with the best evaluation ( optimistic value )
+        - a greedy approach
+        - PRUNES: when all the unexpanded nodes have an optimistic value, less than that of an already found solution
+        - This repeats each time, after we expand the children of a node. ( Slide 8 )
+        - Memory efficient: In worst case, we will end up storing the entire tree, which will take exponential memory!
+        - Memory footprint is less when we have a perfect evaluation from the relaxation as the number of nodes expanded would be very less.
+
+    - Least-discrepancy
+        - trust a greedy discrepancy
+        - assume you have a good heuristic and makes very few mistakes
+        - search tree is binary
+        - branching right means heuristic was wrong, and left means it was correct
+        - Limited Discrepancy Search (LDS)
+            - avoid mistakes
+            - explore the search space in increasing order of allowed mistakes
+            - we trust the heuristic less and less with progression
+            - explores the search spaces in waves (Nice example slide 12)
+                - no mistake
+                - one mistake ...
+        - Has a advantage over DFS, it starts exploring diff. parts of solution space in parallel
+        - PRUNES: like in Best-first search, where nodes are not explored if there optimal value is less than an already found solution.
+        - Memory efficient: compared to DFS and BFS? Depends upon the implementation. It would be a trade-off between space and time. 
+          We can save space by doing redundant calculations or vice-versa. It will be between DFS and BFS.
+    - Relaxation and Search: How to choose between them? Will be problem specific.
+    - Can you come up with a new stratergy? 
+
+Exploring the material:
+    - Other course topics:
+        - Constraint Programming
+        - Local Search
+        - Mixed Integer Programming
+    - You can start with some initial solutions for most of the problems
+    - You can revisit the problems later
+    - Nice slide 5, for giving an overview of optimization algorithms
+    - CP and DP might fail for some cases as they are large cases.
+    - Local search might scale nicely, and we might get 7 for 6 instances. 
+    - I think best is to implement all!
+    - CP
+        - like solving puzzles
+        - lots of logic/discrete mathematics
+    - Mixed integer programming
+        - grounded in linear algebra
+        - lots of continuous mathematics
+    - Local search
+        - intution based, most significant coding
+        - writing efficient code helps
+        - lots of staring at the terminal
+
+                
+
+
+     
+              
+     

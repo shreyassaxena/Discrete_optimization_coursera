@@ -94,7 +94,9 @@ def login_prompt():
 
 def basic_prompt():
     """Prompt the user for login credentials. Returns a tuple (login, password)."""
-    login = raw_input('Login (Email address): ')
+    #login = raw_input('Login (Email address): ')
+    login = 'shreyassaxena.ee08@pec.edu.in'
+    print "Your login email is: {}".format(login)
     password = raw_input('Submission Password (from the programming assignments page. This is NOT your own account\'s password): ')
     return (login, password)
 
