@@ -92,10 +92,9 @@ def solve_it(input_data):
         parts = line.split()
         items.append(Item(i-1, int(parts[0]), int(parts[1])))
 
-    ipdb.set_trace()
     # this is where we are going to call our code
     start_time = time.time()
-    result = BB_relaxed.solve_it_depth_first(items, capacity, 'weight')
+    result = BB_relaxed.solve_it_depth_first(items, capacity, 'automatic')
     print "Execution with BB DFS with relaxation took {} seconds".format(time.time()-start_time)
     return result
 

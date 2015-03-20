@@ -68,8 +68,46 @@ Constraint Programming: Intution to CP
                 - Isn't this formulation a bit optimistic as we are just interested in one row up or below for the diagonal?
 
         - Simple example for feasibility checking, X neq Y 
-            -( Slide 35 not clear) Why greater than 1 or 2? Shouldn't it be greater than the min. of either sets?
+            -( Slide 35 not clear): Now it is. He says that if union is > 1, then we can pick two diff. values in set X and Y, and hence
+               satisfy the constraints. 
             - Pruning Occurs only if one of the variable can pick only one value. IMP. Slide 36
 
 
-         
+Constraint Programming 2 : propogation, arithmetic constraints, send+more = money
+    - Each constraint system has a dedicated solver
+    - Send More money example ( interesting example )
+        - Interesting slide 11, for indereing value[s] 
+        - Why dint he perform intersection in the range on slide 14? 
+    - Linear constraints over integers
+        - Interesting example for feasibility test ( Slide 18 )
+        - Interesting way to Prune ( Slide 19 )
+        - Important: Ceil for X and Floor for Y ( Slide 19 )
+        - He did not complete but I guess, using new bounds for Xi and Yi 
+          we will update the l and r and continue? ( Check ) 
+    - Summary:
+        - Every problem has their own dedicated constraints
+        - We used constraint propogation for Sed More money
+            - Propogates the information of variables in diff. constraints for feasibility check
+              and pruning.
+        - We used bound propogation for Linear constraints
+            
+            - We compute the upper and lower bound for the variables
+
+
+Constraint Programming 3 : Rectification, element constraint, magic series, stable marriage
+    - Illustrating rich modelling language of CP
+        - ability to state complex, idiosyncratic constraints
+    - Magic series ( fun problem )
+            - Reification
+                - transform the constraint into 0/1 variable depending if the constraint
+                  associated with it is true or false.
+                - Variables are converted in boolean ( Check again )
+            - Constraints are made of smaller constraints
+    - Stable Marriages
+        - in ranking, lower number for wrank/mrank means higher preference
+        - Nice slide 12 for indexing array 
+    - Basic Element Constraint
+        - 
+                    
+            
+     

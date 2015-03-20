@@ -114,7 +114,6 @@ def perform_DFS(tree, items):
 
 def compute_entropy_field(sequence, field):
 
-
     if field is 'value_per_weight':
         data = [r.value/r.weight for r in sequence]
     elif field:
@@ -135,15 +134,30 @@ def compute_entropy_field(sequence, field):
     entropy_values = -sum([np.log(r)*r for r in hist if r > 0])
     return entropy_values
 
+
+def compute_variance(sequence, field):
+
+    if field is 'value_per_weight':
+        data = [r.value/r.weight for r in sequence]
+    elif field:
+        data = [getattr(r, field) for r in sequence]
+
+    variance = np.var(np.array(data))
+    return variance
+
+
 def compute_field_to_sort(item_list):
     # We choose a attribute which minimizes the entropy of the PDF, which means
-    # the attribute values are far from uniform or being similar
+    # the attribute values are far from uniform or being similar.
+    # We can also choose attribute which has the highest variance. ( This should be more reliable )
+
     field = ['value', 'weight', 'value_per_weight']
     def temp_func(x):
-        return compute_entropy_field(item_list, x)
-
-    temp_eval = map(temp_func, field)
-    index = np.array(temp_eval).argmin()
+        #return compute_entropy_field(item_list, x)
+        return compute_variance(item_list, x)
+    ipdb.set_trace()
+    temp = map(temp_func, field)
+    index = np.array(temp).argmax() # This is argmin if we decide to use entropy.
     return field[index]
 
 
