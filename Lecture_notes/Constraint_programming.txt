@@ -106,8 +106,71 @@ Constraint Programming 3 : Rectification, element constraint, magic series, stab
     - Stable Marriages
         - in ranking, lower number for wrank/mrank means higher preference
         - Nice slide 12 for indexing array 
+        - Typo in slide 14
     - Basic Element Constraint
-        - 
+        - Interesting example for pruning (Slide 17)
+        - Propogation of constraints from one variable to another
+
+Constraint Programming 4: Global constraints
+    - Alldifferent (Global constraints)  
+        - Writes queens problem in a new form ( We might have to revisit Queens formulation again )
+        - Feasibility test-
+            - Example with three variables, showing importance of global constraints to discover infeasibilities earlier
+            - Nice slide 23,24 and 25
+        - Pruning-
+            - Example slide 27
+            - Again global constraints help to prune search space sooner
+    - Sometimes, we can have optimal pruning, and some time it would be sub-optimal
+    - Sudoku:
+        - 3 constraints using all-different 
+        - Nice deduction of 2 at slide 31. ( Yeah, it is magic )
+
+    - Table Constraints
+        - Important slide 32, for pruning using table constraint
+
+    - Graph coloring for countries
+        - Why does he take the min of maximum ? Can't we take the min directly over the number of colors? ( Max is valid as colors are indicated by numbers )
+        - In CP, we try to reduce the optimization problem to a feasibility problem
+        - Find a solution which satisfies the constraints ( 4 colors )
+        - Impose a constraint that the next solution must be better ( Number of colors should be less than 4 )
+Constraint Programming 5 - Symmetry breaking, BIBD, scene allocation
+    - Symmetries
+        - Importatn slide for introduction ( Slide 3)
+    - BIBD
+        - Value symmetry 
+        - Example of combinatorial design: These always have lot of symmetry
+        - Symmetry is present in row and columns ( Slide 6 and 7)
+        - We want to avoid exploring all these set of configurations    
+    - Breaking variable symmetries
+        - Impose an ordering: In the previous case, lexicographic constraint ( Start comparing from left, MSB)
+        - Important slide 9, to break row and column symmetry
+
+    - Scene allocation
+        - Value symmetry
+        - How to break symmetry for the days? ( Important slide 15 )
+        - Limitation of this method to break symmetry will be discussed later in the class
+
+Constraint Programming 6- redundant constraints, magic series, market split
+    - Redundant constraints
+        - They express properties of the solutions not captured by model
+        - These constraints are always valid for any solution, but help the solver to prune faster
+        - Magic Series:
+            - Nice constraint: The sum of occurences has to be equal to length of series
+            - Second constraint is stronger, helps to upper bound the search space ( Look slide 10,11 )
+            - Important: Follow the slide 12-13, for the example. Quite useful  
+       - Market Split problem:
+            - Like knapsack, but constraints instead of less than equal we have equal
+            - Surrogate constraint. What is alpha? ( Doubt )
+Constraint Programming 7 - Car sequencing, dual modelling
+    - We will talk about redundant constraints
+    - Car sequencing ( Implied constraints )
+        -Interesting real life problem ( see slide 4 details )
+        - Slide 9 is imp. but still a bit confusing
+        - Slide 10 is more intutive 
+    - Important slide 18-19 for summary of diff. constraints        
+    - Dual Modeling
+        - many possible modellings
+        - Interesting application to queens problem
                     
             
      
